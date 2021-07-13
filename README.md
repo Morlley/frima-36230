@@ -48,6 +48,7 @@
 | address_line1 | string     | null: false                    |
 | address_line2 | string     |                                |
 | phone_number  | string     | null: false                    |
+| log           | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to : log
