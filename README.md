@@ -17,8 +17,7 @@
 ### Association
 
 - has_many :items
-- has_one :order
-- has_many :comments
+- has_many :logs
 
 ## itemsテーブル
 
@@ -37,8 +36,7 @@
 ### Association
 
 - belongs_to :user
-- has_one :order
-- has_many :comments
+- has_one :log
 
 ## ordersテーブル
 
@@ -49,16 +47,12 @@
 | city          | string     | null: false                    |
 | address_line1 | string     | null: false                    |
 | address_line2 | string     |                                |
-| phone_number  | integer    | null: false                    |
-| buyer         | references | null: false, foreign_key: true |
-| item          | references | null: false, foreign_key: true |
+| phone_number  | string     | null: false                    |
 
 ### Association
+- belongs_to : log
 
-- belongs_to :user
-- belongs_to :item
-
-## commentsテーブル
+## logsテーブル
 
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
@@ -69,3 +63,4 @@
 
 - belongs_to :user
 - belongs_to :item
+- has_one :order
