@@ -31,7 +31,7 @@
 | prefecture_id      | integer    | null: false       |
 | shipment_date_id   | integer    | null: false       |
 | price              | integer    | null: false       |
-| seller             | references | foreign_key: true |
+| user               | references | foreign_key: true |
 
 ### Association
 
