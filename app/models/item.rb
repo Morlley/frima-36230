@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  belongs_to :seller, class_name: "user"
+  belongs_to :user
   has_one :log
   has_one_attached :image
 
@@ -21,7 +21,7 @@ class Item < ApplicationRecord
     validates :condition_id
     validates :shipping_fee_id
     validates :prefecture_id
-    validates :shippment_date_id
+    validates :shipment_date_id
   end
 
 end
