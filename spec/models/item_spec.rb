@@ -25,31 +25,31 @@ RSpec.describe Item, type: :model do
     end
 
     it 'カテゴリーが空では登録できない' do
-      @item.category_id = ''
+      @item.category_id = '---'
       @item.valid?
       expect(@item.errors.full_messages).to include "Category can't be blank"
     end
 
     it '商品の状態の説明が空では登録できない' do
-      @item.condition_id = ''
+      @item.condition_id = '---'
       @item.valid?
       expect(@item.errors.full_messages).to include "Condition can't be blank"
     end
 
     it '配送料の負担の情報が空では登録できない' do
-      @item.shipping_fee_id = ''
+      @item.shipping_fee_id = '---'
       @item.valid?
       expect(@item.errors.full_messages).to include "Shipping fee can't be blank"
     end
 
     it '発送元の地域の情報が空では登録できない' do
-      @item.prefecture_id = ''
+      @item.prefecture_id = '---'
       @item.valid?
       expect(@item.errors.full_messages).to include "Prefecture can't be blank"
     end
 
     it '発送までの日数の情報が空では登録できない' do
-      @item.shipment_date_id = ''
+      @item.shipment_date_id = '---'
       @item.valid?
       expect(@item.errors.full_messages).to include "Shipment date can't be blank"
     end
@@ -66,25 +66,41 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include "Image can't be blank"
     end
 
-    it '価格が指定範囲外の数字の場合は登録できない' do
+    it '299円以下では登録できないこと' do
       @item.price = "299"
       @item.valid?
       expect(@item.errors.full_messages).to include "Price is out of setting range"
+    end
+
+    it '10000000以上では登録できないこと' do
       @item.price = "10000000"
       @item.valid?
       expect(@item.errors.full_messages).to include "Price is out of setting range"
     end
 
-    it '価格が半角数値でない場合は登録できない' do
+    it '価格が英字の場合は登録できない' do
       @item.price = "abc"
       @item.valid?
-      expect(@item.errors.full_messages).to include "Price is invalid. Input half-width characters"
+      expect(@item.errors.full_messages).to include "Price is out of setting range"
+    end
+
+    it '価格が全角数字の場合は登録できない' do
       @item.price = "１２３"
       @item.valid?
-      expect(@item.errors.full_messages).to include "Price is invalid. Input half-width characters"
+      expect(@item.errors.full_messages).to include "Price is out of setting range"
+    end
+
+    it '価格が全角文字の場合は登録できない' do
       @item.price = "テスト"
       @item.valid?
-      expect(@item.errors.full_messages).to include "Price is invalid. Input half-width characters"
+      expect(@item.errors.full_messages).to include "Price is out of setting range"
+    end
+
+
+    it '価格が半角英数混合の場合は登録できない' do
+      @item.price = "123abc"
+      @item.valid?
+      expect(@item.errors.full_messages).to include "Price is out of setting range"
     end
 
     it 'userが紐付いていない場合は登録できない' do

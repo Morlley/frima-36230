@@ -1,6 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
-  has_one :log
+  # has_one :log
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -14,7 +14,7 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :description
-    validates :price, presence: true, format: { with: /\A(?=[1-9])[0-9]+\z/, message: "is invalid. Input half-width characters"}, inclusion: { in: 300..9_999_999, message: "is out of setting range" }
+    validates :price, presence: true, format: { with: /\A[0-9]+\z/, message: "is invalid. Input half-width characters"}, inclusion: { in: 300..9_999_999, message: "is out of setting range" }
   end
 
   with_options numericality: { other_than: 1, message: "can't be blank"} do
