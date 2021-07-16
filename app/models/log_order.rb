@@ -8,7 +8,7 @@ class LogOrder
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank"}
     validates :city
     validates :address_line1
-    validates :phone_number, length: { in: 10..11 , message: "is too short"}, format: { with: /\A\d{3}\d{4}\d{4}\z/, message: "is invalid. Input only number" }
+    validates :phone_number, length: { in: 10..11 , message: "is too short"}, format: { with: /\A\d{10,11}\z/, message: "is invalid. Input only number" }
     validates :user_id
     validates :item_id
   end
