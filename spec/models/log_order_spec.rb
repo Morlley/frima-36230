@@ -53,8 +53,14 @@ RSpec.describe LogOrder, type: :model do
       expect(@log_order.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
     end
 
-    it "都道府県が空の場合保存できないこと" do
+    it "都道府県はid: 1を選択した場合保存できないこと" do
       @log_order.prefecture_id = 1
+      @log_order.valid?
+      expect(@log_order.errors.full_messages).to include "Prefecture can't be blank"
+    end
+
+    it "都道府県が空の場合保存できないこと" do
+      @log_order.prefecture_id = ""
       @log_order.valid?
       expect(@log_order.errors.full_messages).to include "Prefecture can't be blank"
     end
@@ -103,6 +109,12 @@ RSpec.describe LogOrder, type: :model do
 
     it "電話番号が英字の場合保存できないこと" do
       @log_order.phone_number = "abcdefghij"
+      @log_order.valid?
+      expect(@log_order.errors.full_messages).to include "Phone number is invalid. Input only number"
+    end
+
+    it "電話番号が英数字の混合の場合保存できないこと" do
+      @log_order.phone_number = "1234567hij"
       @log_order.valid?
       expect(@log_order.errors.full_messages).to include "Phone number is invalid. Input only number"
     end
