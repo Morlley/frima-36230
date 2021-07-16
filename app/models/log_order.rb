@@ -1,6 +1,6 @@
 class LogOrder
   include ActiveModel::Model
-  attr_accessor :postal_code, :prefecture_id, :city, :address_line1, :address_line2, :phone_number, :log_id, :user_id, :item_id
+  attr_accessor :postal_code, :prefecture_id, :city, :address_line1, :address_line2, :phone_number, :log_id, :user_id, :item_id, :token
 
   with_options presence: true do
     validates :postal_code
@@ -9,6 +9,7 @@ class LogOrder
     validates :phone_number
     validates :user_id
     validates :item_id
+    validates :token
   end
 
   with_options numericality: { other_than: 1, message: "can't be blank"} do
