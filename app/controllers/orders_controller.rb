@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
-before_action :set_item, only: [:index, :create]
+  before_action :authenticate_user!
+  before_action :set_item
+  before_action :move_to_root
 
   def index
     @log_order = LogOrder.new
@@ -10,6 +12,7 @@ before_action :set_item, only: [:index, :create]
     if @log_order.valid?
       pay_item
       @log_order.save
+      @logs
       redirect_to root_path
     else
       render :index
@@ -33,5 +36,11 @@ before_action :set_item, only: [:index, :create]
         card: log_order_params[:token],
         currency: 'jpy'
       )
+  end
+
+  def move_to_root
+    if @item.user_id == current_user.id or @item.log.present?
+      redirect_to root_path
+    end
   end
 end
