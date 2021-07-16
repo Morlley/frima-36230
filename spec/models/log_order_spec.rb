@@ -23,6 +23,12 @@ RSpec.describe LogOrder, type: :model do
   end
 
   context '内容に問題がある場合' do
+    it "tokenが空の場合保存できないこと" do
+      @log_order.token = ""
+      @log_order.valid?
+      expect(@log_order.errors.full_messages).to include("Token can't be blank")
+    end
+
     it "郵便番号が空では保存できないこと" do
       @log_order.postal_code = ""
       @log_order.valid?
@@ -117,6 +123,18 @@ RSpec.describe LogOrder, type: :model do
       @log_order.phone_number = "1234567hij"
       @log_order.valid?
       expect(@log_order.errors.full_messages).to include "Phone number is invalid. Input only number"
+    end
+
+    it "userが紐付いていない場合、保存できないこと" do
+      @log_order.user_id = ""
+      @log_order.valid?
+      expect(@log_order.errors.full_messages).to include "User can't be blank"
+    end
+
+    it "itemが紐付いていない場合、保存できないこと" do
+      @log_order.item_id = ""
+      @log_order.valid?
+      expect(@log_order.errors.full_messages).to include "Item can't be blank"
     end
   end
 

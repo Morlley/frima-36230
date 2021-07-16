@@ -12,7 +12,6 @@ class OrdersController < ApplicationController
     if @log_order.valid?
       pay_item
       @log_order.save
-      @logs
       redirect_to root_path
     else
       render :index
